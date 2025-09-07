@@ -1,0 +1,176 @@
+/* Page background */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* Main container */
+.student-container {
+  width: 90%;
+  max-width: 800px;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h2 {
+  text-align: center;
+  color: #d81b60;
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 15px 0;
+  color: #333;
+}
+
+/* Form inputs */
+input, select {
+  padding: 10px;
+  margin: 8px 0;
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: #fafafa;   /* light background */
+  color: #333;
+  transition: 0.2s ease-in-out;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #1976d2;       /* blue border on focus */
+  box-shadow: 0 0 4px rgba(25, 118, 210, 0.5);
+  background-color: #fff;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 16px;
+  margin: 10px 8px 0 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-blue {
+  background-color: #1976d2;
+}
+
+.btn-blue:hover {
+  background-color: #145a9e;
+}
+
+.btn-green {
+  background-color: #388e3c;
+}
+
+.btn-green:hover {
+  background-color: #2c6c30;
+}
+
+.btn-red {
+  background-color: #d32f2f;
+}
+
+.btn-red:hover {
+  background-color: #a62828;
+}
+
+.btn-gray {
+  background-color: #757575;
+}
+
+.btn-gray:hover {
+  background-color: #5a5a5a;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background-color: #d81b60;   /* pink header */
+  color: white;                /* white text */
+}
+
+td {
+  color: #000;  /* 🔥 make all table text black */
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;   /* alternate row color */
+}
+
+tr:hover {
+  background-color: #f1f1f1;   /* highlight on hover */
+}
+
+/* Action buttons inside table */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* JSON preview */
+pre {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+/* Message banner */
+.message-banner {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  z-index: 1000;
+  text-align: center;
+}
+
+.message-banner.error {
+  background-color: #e53935;
+}
