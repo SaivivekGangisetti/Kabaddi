@@ -2,62 +2,53 @@ pipeline {
     agent any
 
     stages {
-
-        // ===== FRONTEND BUILD =====
         stage('Build Frontend') {
             steps {
-                dir('Frontend') {
+                dir('frontendapp') {
                     bat 'npm install'
                     bat 'npm run build'
                 }
             }
         }
 
-        // ===== FRONTEND DEPLOY =====
         stage('Deploy Frontend to Tomcat') {
             steps {
                 bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactkabaddi" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactkabaddi"
-                )
-                mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactkabaddi"
-                xcopy /E /I /Y Frontend\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactkabaddi"
+                    if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi" (
+                        rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
+                    )
+                    mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
+                    xcopy /E /I /Y frontendapp\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
                 '''
             }
         }
 
-        // ===== BACKEND BUILD =====
         stage('Build Backend') {
             steps {
-                dir('Backend') {
-                    bat 'mvn clean package'
+                dir('BACKEND/Backend') {
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
 
-        // ===== BACKEND DEPLOY =====
         stage('Deploy Backend to Tomcat') {
             steps {
                 bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war" (
-                    del /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war"
-                )
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend"
-                )
-                copy "Backend\\target\\*.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war"
+                    if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war" (
+                        del "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war"
+                    )
+                    copy BACKEND\\Backend\\target\\Backend.war "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
                 '''
             }
         }
-
     }
 
     post {
         success {
-            echo 'KABADDI Deployment Successful!'
+            echo "✅ Pipeline completed successfully."
         }
         failure {
-            echo 'KABADDI Pipeline Failed.'
+            echo "❌ Pipeline Failed."
         }
     }
 }
