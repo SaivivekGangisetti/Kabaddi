@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build Frontend') {
             steps {
-                dir('frontendapp') {
+                dir('Frontend') {
                     bat 'npm install'
                     bat 'npm run build'
                 }
@@ -18,14 +18,14 @@ pipeline {
                         rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
                     )
                     mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
-                    xcopy /E /I /Y frontendapp\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
+                    xcopy /E /I /Y Frontend\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\kabaddi"
                 '''
             }
         }
 
         stage('Build Backend') {
             steps {
-                dir('BACKEND/Backend') {
+                dir('Backend') {
                     bat 'mvn clean package -DskipTests'
                 }
             }
@@ -34,10 +34,10 @@ pipeline {
         stage('Deploy Backend to Tomcat') {
             steps {
                 bat '''
-                    if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war" (
-                        del "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Backend.war"
+                    if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootkabaddi.war" (
+                        del "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootkabaddi.war"
                     )
-                    copy BACKEND\\Backend\\target\\Backend.war "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
+                    copy Backend\\target\\springbootkabaddi.war "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
                 '''
             }
         }
